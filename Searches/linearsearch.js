@@ -3,7 +3,7 @@ class LinearSearch {
     this.items = items;
   }
   findItemIteratively(item) {
-    for (let i = 0; i < this.items.length; ++i) {
+    for (let i = 0; i < this.items.length - 1; ++i) {
       if (item === this.items[i]) {
         return { [i]: item };
       }
@@ -26,7 +26,7 @@ function initLinearSearch() {
   var linearSearch = new LinearSearch([1, 2, 3, 4, 5, 6, 7, 8, 9]);
 
   console.log(linearSearch.findItemIteratively(5));
-  console.log(linearSearch.findItemRecursively(6));
+  console.log(linearSearch.findItemRecursively(5));
 }
 
 initLinearSearch();
