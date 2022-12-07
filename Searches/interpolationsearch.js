@@ -6,8 +6,8 @@ class InterpolationSearch {
   findItemIteratively(item) {
     let mid, low = 0, high = this.items.length - 1;
     for (;low <= high && item >= this.items[low] && item <= this.items[high];) {
-      mid = low + Math.floor(((high - low) / (this.items[high] - this.items[low])) *(item - this.items[low]));
-      if (this.items[mid] == item) {
+      mid = this.getSlope(item, low, high);
+      if (this.items[mid] == item) {        
         return { [mid]: item };
       }
       if (this.items[mid] < item) {
@@ -24,23 +24,22 @@ class InterpolationSearch {
     let mid;
 
     if (low <= high && item >= this.items[low] && item <= this.items[high]) {
-      mid =
-        low +
-        Math.floor(
-          ((high - low) / (this.items[high] - this.items[low])) *
-            (item - this.items[low])
-        );
+      mid = this.getSlope(item, low, high);
       if (this.items[mid] == item) {
         return { [mid]: item };
       }
-      if (this.items[mid] < item) {
-        return findItemRecursively(item, mid + 1, high);
+      else if (this.items[mid] < item) {
+        low = mid +1;
+      } else {
+        high = mid - 1;
       }
-      if (this.items[mid] > item) {
-        return findItemRecursively(item, low, mid - 1);
-      }
+      return findItemRecursively(item, low, high);
     }
     return -1;
+  }
+
+  getSlope(item, low, high){
+    return low + Math.floor(((high - low) / (this.items[high] - this.items[low])) * (item - this.items[low]));
   }
 }
 function initInterpolationSearch() {
